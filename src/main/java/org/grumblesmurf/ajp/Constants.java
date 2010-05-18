@@ -6,6 +6,9 @@ import java.util.Map;
 final class Constants
 {
     static final int PACKET_TYPE_FORWARD_REQUEST = 2;
+    static final int PACKET_TYPE_SEND_BODY_CHUNK = 3;
+    static final int PACKET_TYPE_SEND_HEADERS = 4;
+    static final int PACKET_TYPE_END_RESPONSE = 5;
     
     static final int PACKET_TYPE_CPONG = 9;
     static final int PACKET_TYPE_CPING = 10;
@@ -47,6 +50,19 @@ final class Constants
         COMMON_ATTRIBUTES.put("stored_method", 0x0D);
     }
     static final int ATTRIBUTE_GENERIC = 0x0A;
+
+    static final String[] RESPONSE_HEADERS = { "Content-Type",
+                                               "Content-Language",
+                                               "Content-Length",
+                                               "Date",
+                                               "Last-Modified",
+                                               "Location",
+                                               "Set-Cookie",
+                                               "Set-Cookie2",
+                                               "Servlet-Engine",
+                                               "Status",
+                                               "WWW-Authenticate", 
+    };
     
     private Constants() {
     }

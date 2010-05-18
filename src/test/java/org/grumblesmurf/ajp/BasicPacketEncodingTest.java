@@ -21,4 +21,10 @@ public class BasicPacketEncodingTest
         assertThat(cpingBytes[2], is((byte)0));
         assertThat(cpingBytes[3], is((byte)1));
     }
+
+    @Test
+    public void makeIntWorks() throws Exception {
+        assertThat(AjpReader.makeInt(0, 1), is(1));
+        assertThat(AjpReader.makeInt(1, 0), is(256));
+    }
 }

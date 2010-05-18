@@ -7,6 +7,8 @@ import java.net.URL;
 import java.net.UnknownHostException;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class AjpClient
 {
@@ -20,21 +22,28 @@ public class AjpClient
         socket.close();
     }
 
-    // FIXME: Return something sensible
-    public void get(URL url) {
+    public AjpResponse get(URL url) {
         try {
             AjpMessage m = new ForwardRequestMessage(url);
             m.writeTo(socket.getOutputStream());
 
-            // FIXME: do something useful
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = socket.getInputStream().read(buffer)) != -1) {
-                System.out.println(new String(buffer, 0, read, "ISO-8859-1"));
+            // XXX: YUCK!
+            SendHeadersMessage headers = null;
+            List<SendBodyChunkMessage> body = new LinkedList<SendBodyChunkMessage>();
+            
+            // XXX: DOUBLEYUCK!
+            for (AjpMessage reply = null; !(reply instanceof EndResponseMessage); ) {
+                reply = AjpReader.readReplyMessage(socket.getInputStream());
+                if (reply instanceof SendBodyChunkMessage)
+                    body.add((SendBodyChunkMessage)reply);
+                if (reply instanceof SendHeadersMessage)
+                    headers = (SendHeadersMessage)reply;
             }
+            return new AjpResponse(headers, body);
         } catch (IOException e) {
             // FIXME: Uhm
             e.printStackTrace();
+            return null;
         }
     }
     
