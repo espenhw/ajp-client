@@ -12,8 +12,8 @@
   <url>http://github.com/espenhw/ajp-client</url>
   <licenses>
     <license>
-      <name>The GNU General Public License, Version 2</name>
-      <url>http://www.gnu.org/licenses/gpl2.txt</url>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>

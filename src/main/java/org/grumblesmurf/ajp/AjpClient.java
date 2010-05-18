@@ -3,6 +3,7 @@ package org.grumblesmurf.ajp;
 import java.io.IOException;
 
 import java.net.Socket;
+import java.net.URL;
 import java.net.UnknownHostException;
 
 import java.util.Arrays;
@@ -17,6 +18,24 @@ public class AjpClient
 
     public void close() throws IOException {
         socket.close();
+    }
+
+    // FIXME: Return something sensible
+    public void get(URL url) {
+        try {
+            AjpMessage m = new ForwardRequestMessage(url);
+            m.writeTo(socket.getOutputStream());
+
+            // FIXME: do something useful
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = socket.getInputStream().read(buffer)) != -1) {
+                System.out.println(new String(buffer, 0, read, "ISO-8859-1"));
+            }
+        } catch (IOException e) {
+            // FIXME: Uhm
+            e.printStackTrace();
+        }
     }
     
     public boolean cping() {

@@ -5,7 +5,7 @@ import java.io.IOException;
 class CPingMessage
     extends AbstractAjpMessage
 {
-    CPingMessage() throws IOException {
+    CPingMessage() {
         super(Constants.PACKET_TYPE_CPING); 
     }
 }

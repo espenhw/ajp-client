@@ -5,7 +5,7 @@ import java.io.IOException;
 class CPongMessage
     extends AbstractAjpMessage
 {
-    CPongMessage() throws IOException {
+    CPongMessage() {
         super(Constants.PACKET_TYPE_CPONG); 
     }
 }
