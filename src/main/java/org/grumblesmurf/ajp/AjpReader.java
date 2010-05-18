@@ -24,6 +24,8 @@ final class AjpReader
             return SendHeadersMessage.readFrom(new ByteArrayInputStream(bytes));
         case Constants.PACKET_TYPE_SEND_BODY_CHUNK:
             return SendBodyChunkMessage.readFrom(new ByteArrayInputStream(bytes));
+        case Constants.PACKET_TYPE_GET_BODY_CHUNK:
+            return GetBodyChunkMessage.readFrom(new ByteArrayInputStream(bytes));
         case Constants.PACKET_TYPE_END_RESPONSE:
             return EndResponseMessage.readFrom(new ByteArrayInputStream(bytes));
         default:

@@ -27,13 +27,18 @@ class ForwardRequestMessage
     }
 
     ForwardRequestMessage(URL url) {
-        this(url, AjpMethod.GET);
+        this(url, AjpMethod.GET, 0);
     }
 
-    ForwardRequestMessage(URL url, AjpMethod method) {
+    ForwardRequestMessage(URL url, AjpMethod method, int contentLength) {
         this();
         setMethod(method);
         setServerName(url.getHost());
+
+        addHeader("Content-Length", String.valueOf(contentLength));
+        if (contentLength > 0) {
+            addHeader("Content-Type", "application/x-www-form-urlencoded");
+        }
 
         if (url.getPort() == -1) {
             setServerPort(url.getDefaultPort());

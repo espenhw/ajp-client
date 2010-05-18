@@ -8,7 +8,7 @@ import java.io.UnsupportedEncodingException;
 abstract class AbstractAjpMessage
     implements AjpMessage
 {
-    private static final byte[] AJP_TAG = { 0x12, 0x34 };
+    static final byte[] AJP_TAG = { 0x12, 0x34 };
     
     private final ByteArrayOutputStream bos;
 
@@ -23,6 +23,7 @@ abstract class AbstractAjpMessage
 
     public void writeTo(OutputStream out) throws IOException {
         out.write(bytes());
+        out.flush();
     }
     
     public final byte[] bytes() {
