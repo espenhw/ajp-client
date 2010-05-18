@@ -64,9 +64,13 @@ final class AjpReader
     }
 
     static void fullyRead(byte[] buffer, InputStream in) throws IOException {
-        int readLength = in.read(buffer);
-        if (readLength != buffer.length) {
-            throw new ShortAjpReadException(buffer.length, readLength);
+        int totalRead = 0;
+        int read = 0;
+        while ((read = in.read(buffer, totalRead, buffer.length - totalRead)) > 0) {
+            totalRead += read;
+        }
+        if (totalRead != buffer.length) {
+            throw new ShortAjpReadException(buffer.length, totalRead);
         }
     }
 
