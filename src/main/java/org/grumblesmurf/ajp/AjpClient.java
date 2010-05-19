@@ -74,7 +74,6 @@ public class AjpClient
         // XXX: TRIPLEYUCK!
         OutputStream out = socket.getOutputStream();
         out.write(AbstractAjpMessage.AJP_TAG, 0, AbstractAjpMessage.AJP_TAG.length);
-        System.err.println("Writing " + lengthToWrite + " bytes");
         if (lengthToWrite > 0) {
             out.write((lengthToWrite + 2 & 0xff00) >> 8);
             out.write(lengthToWrite + 2 & 0x00ff);
