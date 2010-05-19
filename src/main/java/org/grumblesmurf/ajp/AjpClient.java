@@ -14,9 +14,16 @@ import java.util.List;
 public class AjpClient
 {
     private final Socket socket;
-    
+    private String username;
+    private String password;
+        
     private AjpClient(Socket socket) {
         this.socket = socket;
+    }
+
+    public final void setAuthentication(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public void close() throws IOException {
@@ -33,7 +40,12 @@ public class AjpClient
 
     public AjpResponse query(URL url, AjpMethod method, byte[] content) {
         try {
-            AjpMessage m = new ForwardRequestMessage(url, method, content != null ? content.length : 0);
+            ForwardRequestMessage m = new ForwardRequestMessage(url, method, content != null ? content.length : 0);
+            if (username != null) {
+                String auth = String.format("%s:%s", username, password);
+                m.addHeader("Authorization", "Basic " + Base64.encode(auth));
+            }
+                        
             m.writeTo(socket.getOutputStream());
 
             // XXX: YUCK!

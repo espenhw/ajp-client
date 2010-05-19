@@ -21,10 +21,16 @@ public class AjpCommandLineClient
             System.out.printf("CPing %s:%s: %s%n", host, port, ac.cping() ? "OK" : "NOK");
         } else {
             URL url = new URL(args[2]);
+            if (args.length == 5) {
+                ac.setAuthentication(args[3], args[4]);
+            } else if (args.length == 6) {
+                ac.setAuthentication(args[4], args[5]);
+            }
+            
             AjpResponse resp;
-            if (args.length == 3)
+            if (args.length == 3 || args.length == 5)
                 resp = ac.get(url);
-            else
+            else 
                 resp = ac.post(url, read(args[3]));
             
             System.out.printf("%s %s%n", resp.getResponseCode(), resp.getResponseMessage());
