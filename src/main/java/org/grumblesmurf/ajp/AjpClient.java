@@ -29,6 +29,7 @@ public class AjpClient
     private final Socket socket;
     private String username;
     private String password;
+    private List<Pair<String,String>> headers = new LinkedList<Pair<String,String>>();
         
     private AjpClient(Socket socket) {
         this.socket = socket;
@@ -37,6 +38,10 @@ public class AjpClient
     public final void setAuthentication(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public final void addHeader(String name, String value) {
+        headers.add(Pair.make(name, value));
     }
 
     public void close() throws IOException {
@@ -54,6 +59,10 @@ public class AjpClient
     public AjpResponse query(URL url, AjpMethod method, byte[] content) {
         try {
             ForwardRequestMessage m = new ForwardRequestMessage(url, method, content != null ? content.length : 0);
+            for (Pair<String,String> header : headers) {
+                m.addHeader(header.a, header.b);
+            }
+            
             if (username != null) {
                 String auth = String.format("%s:%s", username, password);
                 m.addHeader("Authorization", "Basic " + Base64.encode(auth));
