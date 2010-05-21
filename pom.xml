@@ -98,4 +98,15 @@ limitations under the License.
       </plugin>
     </plugins>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>grumblesmurf-repo</id>
+      <url>scpexe://maven.grumblesmurf.org/srv/www/maven.grumblesmurf.org/htdocs</url>
+      <uniqueVersion>false</uniqueVersion>
+    </repository>
+    <site>
+      <id>grumblesmurf-site</id>
+      <url>scpexe://java.grumblesmurf.org/srv/www/java.grumblesmurf.org/htdocs/</url>
+    </site>
+  </distributionManagement>
 </project>
