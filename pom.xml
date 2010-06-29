@@ -19,7 +19,7 @@ limitations under the License.
   <groupId>org.grumblesmurf</groupId>
   <artifactId>ajp-client</artifactId>
   <name>AJP :: Client</name>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <description>
     A Java client for the Apache JServ protocol (AJP) version 1.3.
   </description>
